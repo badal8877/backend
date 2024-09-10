@@ -24,9 +24,9 @@ adminSchema.pre("save", async function (next) {
 
     try {
         this.password = await bcrypt.hash(this.password, 10);
-        next();
+        next();  // Proceed with saving the document
     } catch (error) {
-        next(error);
+        next(error);  // Pass the error to the error handler
     }
 });
 
