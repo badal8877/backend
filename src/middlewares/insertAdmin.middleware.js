@@ -1,5 +1,5 @@
 //find krna h dusra traika . how to put in database to admin username and password 
-
+// https://www.youtube.com/watch?v=q3bV5pdVhr8
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import { Admin } from '../controllers/admin.controller.js'; // Ensure the path is correct
