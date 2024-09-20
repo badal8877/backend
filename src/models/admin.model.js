@@ -8,6 +8,7 @@ const adminSchema = new Schema({
         required: [true, 'Username is required'],
         unique: true,
         lowercase: true,
+        trim: true, 
     },
     password: {
         type: String,
@@ -44,6 +45,7 @@ adminSchema.methods.generateAccessToken = function() {
     );
 };
 
+
 // Method to generate a refresh token
 adminSchema.methods.generateRefreshToken = function() {
     return jwt.sign(
@@ -52,6 +54,7 @@ adminSchema.methods.generateRefreshToken = function() {
         { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
     );
 };
+
 
 export const Admin = mongoose.model("Admin", adminSchema);
 

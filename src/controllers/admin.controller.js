@@ -22,6 +22,55 @@ const generateAccessAndRefreshToken = async (adminId) => {
     }
 
 }
+const registerAdmin = asyncHandler( async (req, res) => {
+    // get user details from frontend
+    // validation - not empty
+    // check if user already exists: username, email
+    // create user object - create entry in db
+    // remove password and refresh token field from response
+    // check for user creation
+    // return res
+
+
+    const {username, password } = req.body
+    console.log("username: ", username);
+
+    if (
+        [username, password].some((field) => field?.trim() === "")
+    ) {
+        throw new ApiError(400, "All fields are required")
+    }
+
+    const existedAdmin = await Admin.findOne({
+        $or: [{ username }, { email }]
+    })
+
+    if (existedAdmin) {
+        throw new ApiError(409, "Admin with  username already exists")
+    }
+    console.log(req.username);
+      
+
+    const admin = await Admin.create({
+        password,
+        username: username.toLowerCase()
+    })
+
+    const createdAdmin = await Admin.findById(admin._id).select(
+        "-password -refreshToken"
+    )
+
+    if (!createdAdmin) {
+        throw new ApiError(500, "Something went wrong while registering the admin")
+    }
+
+    return res.status(201).json(
+        new ApiResponse(200, createdUser, "Admin registered Successfully")
+    )
+
+} )
+
+
 const loginAdmin = asyncHandler(async (req, res) => {
     const { username, password } = req.body
 
@@ -78,6 +127,7 @@ const logoutAdmin = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User logged Out"))
 })
 export {
+    registerAdmin,
     loginAdmin,
     logoutAdmin
 }
