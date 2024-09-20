@@ -22,7 +22,7 @@ const generateAccessAndRefreshToken = async (adminId) => {
     }
 
 }
-const registerAdmin = asyncHandler( async (req, res) => {
+const registerAdmin = asyncHandler(async (req, res) => {
     // get user details from frontend
     // validation - not empty
     // check if user already exists: username, email
@@ -32,7 +32,7 @@ const registerAdmin = asyncHandler( async (req, res) => {
     // return res
 
 
-    const {username, password } = req.body
+    const { username, password } = req.body
     console.log("username: ", username);
 
     if (
@@ -49,7 +49,7 @@ const registerAdmin = asyncHandler( async (req, res) => {
         throw new ApiError(409, "Admin with  username already exists")
     }
     console.log(req.username);
-      
+
 
     const admin = await Admin.create({
         password,
@@ -65,10 +65,10 @@ const registerAdmin = asyncHandler( async (req, res) => {
     }
 
     return res.status(201).json(
-        new ApiResponse(200, createdUser, "Admin registered Successfully")
+        new ApiResponse(200, createdAdmin, "Admin registered Successfully")
     )
 
-} )
+})
 
 
 const loginAdmin = asyncHandler(async (req, res) => {

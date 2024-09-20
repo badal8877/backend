@@ -8,7 +8,7 @@ const adminSchema = new Schema({
         required: [true, 'Username is required'],
         unique: true,
         lowercase: true,
-        trim: true, 
+        trim: true,
     },
     password: {
         type: String,
@@ -37,7 +37,7 @@ adminSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 // Method to generate an access token
-adminSchema.methods.generateAccessToken = function() {
+adminSchema.methods.generateAccessToken = function () {
     return jwt.sign(
         { _id: this._id, username: this.username },
         process.env.ACCESS_TOKEN_SECRET,
@@ -47,7 +47,7 @@ adminSchema.methods.generateAccessToken = function() {
 
 
 // Method to generate a refresh token
-adminSchema.methods.generateRefreshToken = function() {
+adminSchema.methods.generateRefreshToken = function () {
     return jwt.sign(
         { _id: this._id },
         process.env.REFRESH_TOKEN_SECRET,
