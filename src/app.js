@@ -11,9 +11,14 @@ app.use(cors({
 }))
 
 
+app.use(express.json())
 app.use(express.static("public"))
 app.use(cookieParser())
 
+
+app.get('/', (req, res) => {
+    res.send('Welcome to my API!');
+  });
 
 //routes
 import adminRouter from './routes/admin.route.js'
